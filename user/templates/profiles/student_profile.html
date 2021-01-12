@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <main id="main">
+    <!--========MAIN PROFILE SECTION======-->
+    <section id="hero" class="d-flex justify-content-center align-items-center" style="background-image:url({{ student.profile_pic.url }})">
+
+        </section>
+    <!--========END MAIN PROFILE SECTION======-->
+    <!--========ABOUT SECTION======-->
+     <section id="about" class="about">
+      <div class="container" data-aos="fade-up">
+        <div class="section-title">
+          <h2>About</h2>
+          <p>About Me</p>
+        </div>
+        <div class="row">
+          <div class="col-lg-6 order-1 order-lg-2" data-aos="fade-left" data-aos-delay="100">
+            <img src="{{ student.profile_pic.url }}" class="img-fluid" alt="">
+          </div>
+          <div class="col-lg-6 pt-4 pt-lg-0 order-2 order-lg-1 content">
+            <h3>Mr {{ student.user.get_full_name }}.</h3>
+            <p class="font-italic">
+              I am {{ student.user.get_full_name }} student at {{ student.faculty_name }} college at the {{ student.level }}.
+            </p>
+            {% if student.bio  %}
+            <h3>My Bio.</h3>
+            <p class="font-italic">
+              {{ student.bio }}.
+            </p>
+            {% endif %}
+          </div>
+        </div>
+        <a href="{% url 'user:update_student' student.slug %}" class="btn btn-outline-success btn-lg">Edit profile</a>
+      </div>
+    </section>
+    <!--========END ABOUT SECTION======-->
+    </main>
+{% endblock %}
+
+

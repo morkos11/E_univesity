@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block content %}
+    <br><br><br><br>
+{% if professor %}
+<div class="container">
+    {% for i in professor %}
+    <div >
+        <img src="{{i.profile_pic.url}}" class="rounded-circle" alt="" style="width:5%;height:3%;">
+        <span><a href="{{ i.get_absolute_url }}">{{ i.user.username }}</a></span>
+    </div>
+   {% endfor %}
+</div>
+{% elif student %}
+<div class="container">
+    {% for i in student %}
+    <div >
+        <img src="{{i.profile_pic.url}}" class="rounded-circle" alt="" style="width:5%;height:3%;">
+        <span><a href="{{ i.get_absolute_url }}">{{ i.user.username }}</a></span>
+    </div>
+   {% endfor %}
+</div>
+{% elif unfinished %}
+<div class="container">
+    <div >
+        <span>{{unfinished}}</span>
+    </div>
+</div>
+{% else %}
+    <p class="text-center text-danger">No user name with {{ bad_search }} name founded, Click <a href="{% url 'home' %}">here</a></p>
+{% endif %}
+{% endblock %}

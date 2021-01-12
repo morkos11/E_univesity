@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <main id="main">
+    <!--========MAIN PROFILE SECTION======-->
+    <section id="hero" class="d-flex justify-content-center align-items-center" style="background-image:url({{ professor.profile_pic.url }})">
+        {% if not professor.is_approved %}
+            <h2 class="text-center text-danger">didnt accept</h2>
+        {% endif %}
+        </section>
+    <!--========END MAIN PROFILE SECTION======-->
+    <!--========ABOUT SECTION======-->
+     <section id="about" class="about">
+      <div class="container" data-aos="fade-up">
+        <div class="section-title">
+          <h2>About</h2>
+          <p>About Me</p>
+        </div>
+        <div class="row">
+          <div class="col-lg-6 order-1 order-lg-2" data-aos="fade-left" data-aos-delay="100">
+            <img src="{{ professor.profile_pic.url }}" class="img-fluid" alt="">
+          </div>
+          <div class="col-lg-6 pt-4 pt-lg-0 order-2 order-lg-1 content">
+            <h3>Professor {{ professor.user.get_full_name }}.</h3>
+            <p class="font-italic">
+              I have doctorate at {{ professor.degree_of_doctorate }}.
+            </p>
+            {% if professor.bio  %}
+            <h3>My Bio.</h3>
+            <p class="font-italic">
+              {{ professor.bio }}.
+            </p>
+            {% endif %}
+          <h4>I am teaching at the following departments : </h4>
+            <ul>
+                {% for i in professor.departments_teach_to %}
+              <li><i class="icofont-check-circled"></i>{{ i }}.</li>
+                {% endfor %}
+            </ul>
+          </div>
+        </div>
+        <a href="{% url 'user:update_professor' professor.slug %}" class="btn btn-outline-success btn-lg">Edit profile</a>
+      </div>
+    </section>
+    <!--========END ABOUT SECTION======-->
+    <!--==============COURSE SECTION================-->
+     {% if courses %}
+     <section id="popular-courses" class="courses">
+      <div class="container" data-aos="fade-up">
+        <div class="section-title">
+          <h2>Courses</h2>
+          <p>My Courses</p>
+        </div>
+        <div class="row" data-aos="zoom-in" data-aos-delay="100">
+            {% for course in courses %}
+          <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
+            <div class="course-item">
+              <img src="{{ course.course_pic.url }}" class="img-fluid" alt="...">
+              <div class="course-content">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                  <h4>{{ course.course_title }}</h4>
+                  <a href="{% url 'user:course_update' course.slug %}" class="btn btn-outline-success">Edit course</a>
+                </div>
+                <h3><a href="{{ course.get_absolute_url }}">{{course.course_title}}</a></h3>
+                <p>{{ course.course_description| truncatewords:3}}.</p>
+                <div class="trainer d-flex justify-content-between align-items-center">
+                  <div class="trainer-profile d-flex align-items-center">
+                    <img src="{{course.professor.profile_pic.url}}" class="img-fluid" alt="">
+                    <span>{{ course.professor.user.first_name }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        {% endif %}
+        </div>
+    <br>
+    {% if professor.is_approved %}
+      <a href="{% url 'user:create_course' %}" class="btn btn-outline-success btn-lg">Add course</a>
+    {%endif %}
+      </div>
+     </section>
+     <!--==============END COURSE SECTION================-->
+    </main>
+{% endblock %}
+
+

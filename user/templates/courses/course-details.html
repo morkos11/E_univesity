@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <main id="main">
+    <!-- ======= Breadcrumbs ======= -->
+    <div class="breadcrumbs" data-aos="fade-in">
+      <div class="container">
+        <h2>Course Details</h2>
+      </div>
+    </div><!-- End Breadcrumbs -->
+    <!-- ======= Cource Details Section ======= -->
+    <section id="course-details" class="course-details">
+      <div class="container" data-aos="fade-up">
+        <div class="row">
+          <div class="col-lg-8">
+            <img src="{{ course.course_pic.url }}" class="img-fluid" alt="">
+            <h3>Course details and descriptions</h3>
+            <p>{{ course.course_description }}</p>
+          </div>
+          <div class="col-lg-4">
+            <div class="course-info d-flex justify-content-between align-items-center">
+              <h5>Professor</h5>
+              <p><a href="{% url 'user:professor_profile_search' course.professor.slug %}">{{course.professor.user.username}}</a></p>
+            </div>
+              <div class="course-info d-flex justify-content-between align-items-center">
+              <h5>Time created</h5>
+              <p>{{course.course_time.date}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section><!-- End Cource Details Section -->
+    <!-- ======= Cource Details Tabs Section ======= -->
+    <section id="cource-details-tabs" class="cource-details-tabs">
+      <div class="container" data-aos="fade-up">
+                    <h3>Course Videos</h3>
+                    {% if '/embed' in course.course_url %}
+                      <div class="embed-responsive embed-responsive-16by9">
+                      <iframe class="embed-responsive-item" src="{{course.course_url}}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                      </div>
+                    {% else %}
+                      <div class="embed-responsive embed-responsive-16by9">
+                      <iframe class="embed-responsive-item" src="{{course.video}}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                      </div>
+                    {% endif %}
+       </div>
+    </section><!-- End Cource Details Tabs Section -->
+  </main><!-- End #main -->
+{% endblock %}

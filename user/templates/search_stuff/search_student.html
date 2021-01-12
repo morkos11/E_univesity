@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <br><br><br>
+    {% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-{{ message.tags }} alert-dismissible text-center" role="alert">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <strong>{% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Error{% else %}{{ message.tags|title }}{% endif %}!</strong> {{ message }}
+    </div>
+    {% endfor %}
+    {% endif %}
+    <main id="main">
+    <!--========MAIN PROFILE SECTION======-->
+    <section id="hero" class="d-flex justify-content-center align-items-center" style="background-image:url({{ student.profile_pic.url }})">
+    </section>
+    <!--========END MAIN PROFILE SECTION======-->
+    <!--========ABOUT SECTION======-->
+     <section id="about" class="about">
+      <div class="container" data-aos="fade-up">
+        <div class="section-title">
+          <h2>About</h2>
+          <p>About Me</p>
+        </div>
+        <div class="row">
+          <div class="col-lg-6 order-1 order-lg-2" data-aos="fade-left" data-aos-delay="100">
+            <img src="{{ student.profile_pic.url }}" class="img-fluid" alt="">
+          </div>
+          <div class="col-lg-6 pt-4 pt-lg-0 order-2 order-lg-1 content">
+            <h3>Mr {{ student.user.get_full_name }}.</h3>
+            <p class="font-italic">
+              I am {{ student.user.get_full_name }} student at {{ student.faculty_name }} college at the {{ student.level }}.
+            </p>
+            {% if student.bio  %}
+            <h3>My Bio.</h3>
+            <p class="font-italic">
+              {{ student.bio }}.
+            </p>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </section>
+    <!--========END ABOUT SECTION======-->
+    <!--========= Contact Section ========================-->
+    <section id="contact" class="contact">
+      <div data-aos="fade-up">
+
+      <div class="container" data-aos="fade-up">
+        <div class="section-title">
+          <h2>Contact</h2>
+          <p>Contact Me</p>
+        </div>
+
+        <div class="row mt-5">
+
+          <div class="col-lg-4">
+            <div class="info">
+
+              <div class="email">
+                <i class="icofont-envelope"></i>
+                <h4>Email:</h4>
+                <a href="mailto:{{ student.user.email }}">{{ student.user.email }}</a>
+              </div>
+
+              <div class="phone">
+                <i class="icofont-phone"></i>
+                <h4>Call:</h4>
+                <p>{{student.phone_number}}</p>
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="col-lg-8 mt-5 mt-lg-0">
+
+            <form method="post" >
+                {% csrf_token %}
+
+              <div class="form-group">
+                <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject" />
+                <div class="validate"></div>
+              </div>
+              <div class="form-group">
+                <textarea class="form-control" name="message" rows="5" data-rule="required" data-msg="Please write something for us" placeholder="Message"></textarea>
+                <div class="validate"></div>
+              </div>
+              <div class="text-center"><button type="submit"style="background: #5fcf80;border: 0;padding: 10px 35px;color: #fff;
+                                                                   transition: 0.4s;border-radius: 50px;">Send Message</button></div>
+            </form>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+    <!--==============End Contact Section============-->
+    </main>
+{% endblock %}
+
+

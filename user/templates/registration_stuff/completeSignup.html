@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+    <br><br><br><br>
+    <section id="hero" class="d-flex justify-content-center align-items-center" style="background-image: url('{% static "assets/img/signupbg.jpg" %}')">
+    <div class="container position-relative" data-aos="zoom-in" data-aos-delay="100">
+      <a href="{% url 'user:professor_signup' %}" class="btn-get-started btn-lg btn-block"><P style="font-size:30px;text-align:center;font-family:'Ink Free'">Professor</P></a>
+      <a href="{% url 'user:user_signup' %}" class="btn-get-started btn-lg btn-block"><P style="font-size:30px;text-align:center;font-family: 'Ink Free'">Student</P></a>
+    </div>
+  </section>
+{% endblock %}
